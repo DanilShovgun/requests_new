@@ -1,0 +1,17 @@
+import requests
+import time
+from pprint import pprint
+
+# параметры поиска
+params = {
+    'fromdate': int(time.time()) - 172800,  # за последние 2 дня
+    'tagged': 'python',  # тег "Python"
+    'site': 'stackoverflow'
+}
+
+# отправляем запрос для получения вопросов
+response = requests.get('https://api.stackexchange.com/2.3/questions', params=params)
+
+# выводим все вопросы
+for item in response.json()['items']:
+    pprint(item['title'] + "\n" + item['link'] + "\n")
